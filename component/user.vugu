@@ -1,0 +1,32 @@
+<div class="mt-5">
+    <h1>Welcome to Vugu</h1>
+    <h1 vg-content="c.Name"></h1>
+    <p class="lead">This page is being rendered via 
+        <a @click='c.ShowWasm(event)' href="https://webassembly.org/">WebAssembly</a>,
+        written in
+        <a @click='event.PreventDefault();c.ShowGo=!c.ShowGo' href="https://golang.org/">Go</a>
+        using
+        <a @click='event.PreventDefault();c.ShowVugu=!c.ShowVugu' href="https://vugu.org/">Vugu</a>.
+    </p>
+
+    <div vg-if='c.ShowWasmVal' class="alert alert-primary" role="alert">
+        <strong>WebAssembly</strong> (abbreviated Wasm) is a binary instruction format.
+        It is designed as a portable target for compilation of high-level languages like Go/C/C++/Rust, 
+        enabling deployment on the web for client and server applications.
+        <a target="_blank" href="https://webassembly.org/">Read more at webassembly.org &raquo;</a>
+    </div>
+
+    <div vg-if='c.ShowGo' class="alert alert-primary" role="alert">
+        <strong>Go</strong> is an open source programming language that makes it easy to build simple, reliable, and efficient software.
+        <a target="_blank" href="https://golang.org/">Read more at golang.org &raquo;</a>
+    </div>
+
+    <div vg-if='c.ShowVugu' class="alert alert-primary" role="alert">
+        <strong vg-content="c.PresentDate()"></strong>
+        <span class="material-symbols-outlined">
+            face
+        </span>
+        <button class="btn btn-primary" @click='event.PreventDefault();'>Tonal</button>
+    </div>
+
+</div>

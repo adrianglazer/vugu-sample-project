@@ -1,0 +1,19 @@
+<div>
+    <main role="main" class="container text-center">
+
+        <div class="mt-5">
+            <h1>Vugu Sample Project <p vg-content="time.Now().Year()" /></h1>
+            <strong vg-content="c.PresentDate()"></strong>
+            <strong vg-content="c.LocalStorageItemGet()"></strong>
+        </div>
+
+        <component:User :Router="c" Name="Super Czlowiek" />
+
+    </main>
+</div>
+
+<script type="application/x-go">
+
+import "time"
+    
+</script>
