@@ -7,7 +7,7 @@
             <strong vg-content="c.LocalStorageItemGet()"></strong>
         </div>
 
-        <component:User :Router="c" Name="Super Czlowiek" />
+        <user:User :AddCntRouterRef="c.AddCnt" Name="Test Test" />
 
     </main>
 </div>
@@ -15,5 +15,6 @@
 <script type="application/x-go">
 
 import "time"
+import user "vugu-sample-project/user"
     
 </script>

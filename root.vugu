@@ -1,7 +1,6 @@
-
 <div>
-<component:Router/>
+  <router:Router />
 </div>
 <script type="application/x-go">
-import component "vugu-sample-project/component"
+  import router "vugu-sample-project/router"
 </script>
