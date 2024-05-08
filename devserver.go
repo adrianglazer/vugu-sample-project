@@ -24,7 +24,9 @@ func main() {
 
 	wc := devutil.NewWasmCompiler().SetDir(".")
 	mux := devutil.NewMux()
-	mux.Match(devutil.NoFileExt, devutil.StaticContent(index))
+	mux.Match(devutil.NoFileExt, devutil.StaticContent(index).Replace(
+		"<!-- scripts -->",
+		"<script src=\"http://localhost:8324/auto-reload.js\"></script>\n<!-- scripts -->"))
 	mux.Exact("/main.wasm", devutil.NewMainWasmHandler(wc))
 	mux.Exact("/wasm_exec.js", devutil.NewWasmExecJSHandler(wc))
 	mux.Default(devutil.NewFileServer().SetDir("."))

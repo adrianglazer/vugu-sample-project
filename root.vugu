@@ -1,6 +1,4 @@
-<div>
-  <router:Router />
+<div class="h-100">
+  <vg-comp expr="c.Body" />
 </div>
-<script type="application/x-go">
-  import router "vugu-sample-project/router"
-</script>
+<script type="application/x-go"></script>

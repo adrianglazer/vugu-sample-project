@@ -1,0 +1,67 @@
+<div
+  class="shadow-lg p-3 mb-5 bg-body rounded d-flex flex-column align-items-center position-relative"
+>
+  <common:Spinner vg-if="c.IsLoading"></common:Spinner>
+
+  <div>
+    <img src="/public/assets/img/logo_min.jpg" />
+  </div>
+  <!-- <h5 class="mb-3">Login</h5> -->
+
+  <div class="input-group flex-nowrap mb-2">
+    <span class="input-group-text" id="addon-wrapping"
+      ><i class="fa fa-user"></i
+    ></span>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Username"
+      aria-label="Username"
+      aria-describedby="addon-wrapping"
+      @input='c.Username = event.PropString("target", "value")'
+    />
+  </div>
+
+  <div class="input-group flex-nowrap mb-3">
+    <span class="input-group-text" id="addon-wrapping"
+      ><i class="fa fa-note-sticky"></i
+    ></span>
+    <input
+      type="password"
+      class="form-control"
+      placeholder="Password"
+      aria-label="Password"
+      aria-describedby="addon-wrapping"
+      @input='c.Password = event.PropString("target", "value")'
+    />
+  </div>
+
+  <button type="button" class="btn btn-primary w-100" @click="c.Login(event)">
+    Login
+  </button>
+
+  <hr class="w-100" />
+  <div class="d-flex w-100">
+    <div class="d-flex w-100 flex-sm-grow-1">
+      <a
+        @click='event.PreventDefault();c.Navigate("/remember-password", nil)'
+        href="/remember-password"
+        class="link-primary fs-6 fw-lighter text-break link-underline-opacity-0"
+      >
+        Remember password
+      </a>
+    </div>
+    <div class="d-flex w-100 lex-sm-grow-1 justify-content-end">
+      <a
+        @click='event.PreventDefault();c.Navigate("/new-account", nil)'
+        href="/new-account"
+        class="link-primary fs-6 fw-lighter text-break link-underline-opacity-0"
+      >
+        New account
+      </a>
+    </div>
+  </div>
+</div>
+<script type="application/x-go">
+  import "vugu-sample-project/common"
+</script>
