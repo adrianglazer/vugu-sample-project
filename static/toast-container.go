@@ -5,14 +5,18 @@ import (
 )
 
 type ToastContainer struct {
-	ToastDuration int // millis
-	Toasts        map[uint]Toast
+	ToastDuration int            `vugu:"data"` // millis
+	Toasts        map[uint]Toast `vugu:"data"`
 	vugu.EventEnv
 }
 
 func (tc *ToastContainer) Init(ctx vugu.InitCtx) {
 	tc.EventEnv = ctx.EventEnv()
-	tc.Toasts = make(map[uint]Toast)
+
+	if tc.Toasts == nil {
+		// init only once
+		tc.Toasts = make(map[uint]Toast)
+	}
 }
 
 func (tc *ToastContainer) AddToast(tostType uint8, toastMessage string) {

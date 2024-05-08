@@ -1,0 +1,150 @@
+package router
+
+import (
+	"fmt"
+	"strconv"
+	"time"
+
+	"github.com/vugu/vugu"
+	"github.com/vugu/vugu/js"
+)
+
+type Router struct {
+	ShowWasm bool `vugu:"data"`
+	ShowGo   bool `vugu:"data"`
+	ShowVugu bool `vugu:"data"`
+	Cnt      int  `vugu:"data"`
+}
+
+func (c *Router) PresentDate() string {
+	return time.Now().Format("2006-01-02 15:04:05")
+}
+
+func (c *Router) LocalStorageItemGet() string {
+	return js.Global().Get("localStorage").Call("getItem", "mykey").String()
+}
+
+func (c *Router) AddCnt() {
+	var mykey = js.Global().Get("localStorage").Call("getItem", "mykey").String()
+	cnt, err := strconv.Atoi(mykey)
+
+	if err != nil {
+		cnt = 0
+	}
+
+	c.Cnt = cnt
+	fmt.Println(cnt)
+
+	js.Global().Get("localStorage").Call("setItem", "mykey", cnt+1)
+	fmt.Println("local storage key set")
+}
+
+func (c *Router) Init(ctx vugu.InitCtx) {
+	c.AddCnt()
+}
+
+<div>
+    <main role="main" class="container text-center">
+
+        <div class="mt-5">
+            <h1>Vugu Sample Project <p vg-content="time.Now().Year()" /></h1>
+            <strong vg-content="c.PresentDate()"></strong>
+            <strong vg-content="c.LocalStorageItemGet()"></strong>
+        </div>
+
+        <user:User :AddCntRouterRef="c.AddCnt" Name="Test Test" />
+
+    </main>
+</div>
+
+<script type="application/x-go">
+
+import "time"
+import user "vugu-sample-project/user"
+    
+</script>
+
+
+package user
+
+import (
+	"testing"
+	testutils "vugu-sample-project/testutils"
+)
+
+func TestShowWasm(t *testing.T) {
+	var c = User{ShowWasmVal: false, ShowGo: false, ShowVugu: false}
+
+	d := testutils.MockDOMEvent{}
+	c.ShowWasm(&d)
+
+	if c.ShowWasmVal == false {
+		t.Fail()
+	}
+}
+
+
+package user
+
+import (
+	"log"
+	"time"
+
+	"github.com/vugu/vugu"
+)
+
+type User struct {
+	ShowWasmVal     bool `vugu:"data"`
+	ShowGo          bool `vugu:"data"`
+	ShowVugu        bool `vugu:"data"`
+	DefaultSlot     vugu.Builder
+	Name            string
+	AddCntRouterRef func()
+}
+
+func (c *User) ShowWasm(e vugu.DOMEvent) {
+	e.PreventDefault()
+	c.ShowWasmVal = !c.ShowWasmVal
+	log.Printf("Toggled! Show is now %t", c.ShowWasmVal)
+	// c.Router.AddCnt()
+	c.AddCntRouterRef()
+}
+
+func (c *User) PresentDate() string {
+	return time.Now().Format("2006-01-02 15:04:05")
+}
+
+
+
+<div class="mt-5">
+    <h1>Welcome to Vugu</h1>
+    <h1 vg-content="c.Name"></h1>
+    <p class="lead">This page is being rendered via 
+        <a @click='c.ShowWasm(event)' href="https://webassembly.org/">WebAssembly</a>,
+        written in
+        <a @click='event.PreventDefault();c.ShowGo=!c.ShowGo' href="https://golang.org/">Go</a>
+        using
+        <a @click='event.PreventDefault();c.ShowVugu=!c.ShowVugu' href="https://vugu.org/">Vugu</a>.
+    </p>
+
+    <div vg-if='c.ShowWasmVal' class="alert alert-primary" role="alert">
+        <strong>WebAssembly</strong> (abbreviated Wasm) is a binary instruction format.
+        It is designed as a portable target for compilation of high-level languages like Go/C/C++/Rust, 
+        enabling deployment on the web for client and server applications.
+        <a target="_blank" href="https://webassembly.org/">Read more at webassembly.org &raquo;</a>
+    </div>
+
+    <div vg-if='c.ShowGo' class="alert alert-primary" role="alert">
+        <strong>Go</strong> is an open source programming language that makes it easy to build simple, reliable, and efficient software.
+        <a target="_blank" href="https://golang.org/">Read more at golang.org &raquo;</a>
+    </div>
+
+    <div vg-if='c.ShowVugu' class="alert alert-primary" role="alert">
+        <strong vg-content="c.PresentDate()"></strong>
+        <span class="material-symbols-outlined">
+            face
+        </span>
+        <button class="btn btn-primary" @click='event.PreventDefault();'>Tonal</button>
+    </div>
+
+</div>

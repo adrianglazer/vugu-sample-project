@@ -13,9 +13,9 @@ const (
 )
 
 type Toast struct {
-	ToastKey       uint
-	ToastType      uint8
-	ToastMessage   string
+	ToastKey       uint   `vugu:"data"`
+	ToastType      uint8  `vugu:"data"`
+	ToastMessage   string `vugu:"data"`
 	ToastContainer *ToastContainer
 }
 
