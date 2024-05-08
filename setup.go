@@ -3,6 +3,7 @@ package main
 import (
 	"vugu-sample-project/error"
 	"vugu-sample-project/page"
+	"vugu-sample-project/static"
 
 	"github.com/vugu/vgrouter"
 	"github.com/vugu/vugu"
@@ -11,15 +12,20 @@ import (
 func vuguSetup(buildEnv *vugu.BuildEnv, eventEnv vugu.EventEnv) vugu.Builder {
 	router := vgrouter.New(eventEnv)
 
-	// loop on components and inject navigator if implemented
+	root := &Root{}
+	toastContainer := &static.ToastContainer{ToastDuration: 2000}
+	root.ToastContainer = toastContainer
+	buildEnv.WireComponent(root)
+
+	// loop on components and inject dependencies if implemented
 	buildEnv.SetWireFunc(func(b vugu.Builder) {
 		if c, ok := b.(vgrouter.NavigatorSetter); ok {
 			c.NavigatorSet(router)
 		}
+		if c, ok := b.(static.ToastContainerSetter); ok {
+			c.SetToastContainer(toastContainer)
+		}
 	})
-
-	root := &Root{}
-	buildEnv.WireComponent(root)
 
 	router.MustAddRouteExact("/login",
 		vgrouter.RouteHandlerFunc(func(rm *vgrouter.RouteMatch) {

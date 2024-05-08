@@ -7,5 +7,6 @@ import (
 
 type Root struct {
 	vgrouter.NavigatorRef
-	Body vugu.Builder
+	Body           vugu.Builder
+	ToastContainer vugu.Builder
 }

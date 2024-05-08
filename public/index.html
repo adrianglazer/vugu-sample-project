@@ -24,10 +24,18 @@
   </head>
   <body>
     <div id="vugu_mount_point">
-      <img
-        style="position: absolute; top: 50%; left: 50%"
-        src="https://cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif"
-      />
+      <div
+        class="position-absolute w-100 h-100 d-flex align-items-center justify-content-center z-3"
+        style="backdrop-filter: blur(3px)"
+      >
+        <div
+          class="spinner-border text-primary"
+          style="width: 3rem; height: 3rem"
+          role="status"
+        >
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

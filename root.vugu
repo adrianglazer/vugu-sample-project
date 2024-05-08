@@ -1,4 +1,5 @@
 <div class="h-100">
-  <vg-comp expr="c.Body" />
+  <vg-comp expr="c.Body"></vg-comp>
+  <vg-comp expr="c.ToastContainer"></vg-comp>
 </div>
 <script type="application/x-go"></script>

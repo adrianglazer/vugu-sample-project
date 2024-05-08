@@ -1,0 +1,14 @@
+<div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+  <div vg-attr="vugu.VGAttributeListerFunc(c.makeAttrs)">
+    <strong class="me-auto">Success</strong>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      @click="event.PreventDefault();c.ToastContainer.RemoveToast(c)"
+    ></button>
+  </div>
+  <div class="toast-body" vg-content="c.ToastMessage"></div>
+</div>
+
+<script type="application/x-go"></script>
