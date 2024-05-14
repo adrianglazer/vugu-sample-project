@@ -148,3 +148,27 @@ func (c *User) PresentDate() string {
     </div>
 
 </div>
+
+
+
+
+
+
+	if js.Global().Get("innerWidth").Int() > 768 {
+		c.Toggled = true
+	} else {
+		c.Toggled = false
+	}
+
+	callback := js.FuncOf(func(v1 js.Value, v2 []js.Value) interface{} {
+		log.Println(js.Global().Get("innerWidth").Int())
+
+		if js.Global().Get("innerWidth").Int() > 768 {
+			c.Toggled = true
+		}
+
+		log.Println("Sidebar")
+		return nil
+	})
+
+	js.Global().Call("addEventListener", "resize", callback)

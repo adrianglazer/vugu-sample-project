@@ -1,4 +1,4 @@
-package static
+package generic
 
 import (
 	"github.com/vugu/vugu"

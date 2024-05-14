@@ -3,7 +3,7 @@ package login
 import (
 	"time"
 	"vugu-sample-project/auth"
-	"vugu-sample-project/static"
+	"vugu-sample-project/generic"
 
 	"github.com/vugu/vgrouter"
 	"github.com/vugu/vugu"
@@ -11,7 +11,7 @@ import (
 
 type Login struct {
 	vgrouter.NavigatorRef
-	static.ToastContainerRef
+	generic.ToastContainerRef
 	auth.AuthRef
 	Username  string `vugu:"data"`
 	Password  string `vugu:"data"`
@@ -36,7 +36,7 @@ func (c *Login) Login(event vugu.DOMEvent) {
 		defer ee.UnlockRender()
 		c.IsLoading = false
 		c.SetJWT(auth.TestJWT)
-		c.AddToast(static.ToastSuccess, "You have been logged in")
+		c.AddToast(generic.ToastSuccess, "You have been logged in")
 		c.Navigate("/", nil)
 	}()
 }

@@ -3,8 +3,8 @@ package main
 import (
 	"vugu-sample-project/auth"
 	"vugu-sample-project/error"
+	"vugu-sample-project/generic"
 	"vugu-sample-project/page"
-	"vugu-sample-project/static"
 
 	"github.com/vugu/vgrouter"
 	"github.com/vugu/vugu"
@@ -14,7 +14,7 @@ func vuguSetup(buildEnv *vugu.BuildEnv, eventEnv vugu.EventEnv) vugu.Builder {
 	router := vgrouter.New(eventEnv)
 
 	root := &Root{}
-	toastContainer := &static.ToastContainer{ToastDuration: 5000}
+	toastContainer := &generic.ToastContainer{ToastDuration: 5000}
 	authService := &auth.Auth{}
 	root.ToastContainer = toastContainer
 	buildEnv.WireComponent(root)
@@ -24,7 +24,7 @@ func vuguSetup(buildEnv *vugu.BuildEnv, eventEnv vugu.EventEnv) vugu.Builder {
 		if c, ok := b.(vgrouter.NavigatorSetter); ok {
 			c.NavigatorSet(router)
 		}
-		if c, ok := b.(static.ToastContainerSetter); ok {
+		if c, ok := b.(generic.ToastContainerSetter); ok {
 			c.SetToastContainer(toastContainer)
 		}
 		if c, ok := b.(auth.AuthSetter); ok {

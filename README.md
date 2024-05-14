@@ -5,6 +5,7 @@ Golang Vugu library for web assembly fronted app
 # installation
 
 ```
+go get -u github.com/vugu/vgrun
 vgrun -install-tools
 ```
 
